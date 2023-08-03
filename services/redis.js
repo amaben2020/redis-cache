@@ -40,7 +40,7 @@ class RedisService {
     }
 
     const data = await this.client.get(key);
-
+    console.log("gotten", data);
     return JSON.parse(data);
   }
 
@@ -55,6 +55,20 @@ class RedisService {
     }
 
     await this.client.set(key, value, options);
+  }
+
+  async deleteItem(key) {
+    await this.initRedis();
+    try {
+      if (!key) {
+        throw new Error("Key must be included");
+      }
+
+      await this.client.del(key);
+      console.log("Success ✅");
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

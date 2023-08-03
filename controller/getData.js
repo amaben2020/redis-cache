@@ -22,13 +22,15 @@ const getData = async (req, res) => {
         isCached = true;
       }
     } else {
-      isCached = true;
       results = data;
       await redis.setItem("users", results, {
         EX: 180,
         NX: true,
       });
     }
+
+    // delete ❌
+    // await redis.deleteItem("users");
 
     res.json({
       isCached,
