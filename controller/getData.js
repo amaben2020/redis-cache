@@ -12,10 +12,17 @@ const getData = async (req, res) => {
 
     const cacheData = await redis.getItem("users");
 
-    if (cacheData) {
-      isCached = true;
+    if (
+      Array.isArray(cacheData) &&
+      !!cacheData.length &&
+      cacheData.length > 0
+    ) {
       results = cacheData;
+      if (cacheData.length && results) {
+        isCached = true;
+      }
     } else {
+      isCached = true;
       results = data;
       await redis.setItem("users", results, {
         EX: 180,
