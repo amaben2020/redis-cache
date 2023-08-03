@@ -1,0 +1,5 @@
+https://www.digitalocean.com/community/tutorials/how-to-implement-caching-in-node-js-using-redis
+
+Running a redis server <6379> https://www.tecforfun.com/misc/all-you-need-to-start-node-redis-app/
+redis-server
+redis-cli
