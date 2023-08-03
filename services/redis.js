@@ -40,7 +40,7 @@ class RedisService {
     }
 
     const data = await this.client.get(key);
-    console.log("gotten", data);
+
     return JSON.parse(data);
   }
 

@@ -10,23 +10,23 @@ const getData = async (req, res) => {
     const cacheData = await redis.getItem("users");
 
     const data = await fetchData();
-
-    if (
-      Array.isArray(cacheData) &&
-      !!cacheData.length &&
-      cacheData.length > 0
-    ) {
-      results = cacheData;
-      if (cacheData.length && results) {
-        isCached = true;
-      }
-    } else {
-      results = data;
-      await redis.setItem("users", results, {
-        EX: 180,
-        NX: true,
-      });
-    }
+    results = data;
+    // if (
+    //   Array.isArray(cacheData) &&
+    //   !!cacheData.length &&
+    //   cacheData.length > 0
+    // ) {
+    //   results = cacheData;
+    //   if (cacheData.length && results) {
+    //     isCached = true;
+    //   }
+    // } else {
+    //   results = data;
+    await redis.setItem("users", results, {
+      EX: 180,
+      NX: true,
+    });
+    // }
 
     // delete ❌
     // await redis.deleteItem("users");
