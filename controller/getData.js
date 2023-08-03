@@ -1,16 +1,15 @@
 const { default: axios } = require("axios");
 const { RedisService } = require("../services/redis");
+const { fetchData } = require("../helper/fetchData");
 
 const getData = async (req, res) => {
   let isCached = false;
   let results;
   const redis = new RedisService();
   try {
-    const { data } = await axios.get(
-      "https://64cb5fae700d50e3c705cacb.mockapi.io/api/v1/users",
-    );
-
     const cacheData = await redis.getItem("users");
+
+    const data = await fetchData();
 
     if (
       Array.isArray(cacheData) &&
