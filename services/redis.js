@@ -2,19 +2,6 @@ const redis = require("redis");
 
 let redisClient;
 
-// initialize the client
-// (async () => {
-//   try {
-//     redisClient = redis.createClient();
-
-//     redisClient.on("error", (error) => console.error(`Error : ${error}`));
-
-//     await redisClient.connect();
-//   } catch (error) {
-//     console.log("Error", error);
-//   }
-// })();
-
 class RedisService {
   client;
   constructor() {
