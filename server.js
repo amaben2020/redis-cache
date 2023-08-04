@@ -2,6 +2,9 @@ const express = require("express");
 const axios = require("axios");
 const redis = require("redis");
 const { usersRoute } = require("./routes/routes.js");
+const { options } = require("./docs/options.js");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 const port = process.env.PORT || 3007;
@@ -82,6 +85,21 @@ app.get("/fish/:species", cacheData, getSpeciesData);
 app.get("/", (req, res) => {
   res.send("running");
 });
+
+// swagger docs start
+const specs = swaggerJsdoc(options);
+// with search bar
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    explorer: true,
+    customCssUrl:
+      "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-newspaper.css",
+  }),
+);
+/////
+
 app.use(usersRoute);
 app.listen(port, () => {
   console.log(`App listening on port ${port} 🔥`);

@@ -1,0 +1,6 @@
+components:
+  schemas:
+    Users:
+      type: array
+      items:
+        # $ref: "Thing.yaml#/components/schemas/Thing"
